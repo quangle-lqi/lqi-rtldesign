@@ -1,0 +1,73 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Wed Apr  9 18:43:24 2025
+[*]
+[dumpfile] "/home/mrqua/rtldesign/lab3/sequential_tb.vcd"
+[dumpfile_mtime] "Wed Apr  9 18:41:32 2025"
+[dumpfile_size] 34302
+[savefile] "/home/mrqua/rtldesign/lab3/sequential.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] 219 -265
+*-20.267374 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] sequential_tb.
+[treeopen] sequential_tb.dut.
+[sst_width] 276
+[signals_width] 158
+[sst_expanded] 1
+[sst_vpaned_height] 157
+@28
+sequential_tb.dut.clk
+@22
+sequential_tb.dut.count[15:0]
+sequential_tb.dut.data_in[3:0]
+@28
+sequential_tb.dut.det_in
+sequential_tb.dut.det_out
+sequential_tb.dut.read
+sequential_tb.dut.rst_n
+sequential_tb.dut.s0.LOAD
+sequential_tb.dut.s0.SHIFT
+@420
+sequential_tb.dut.s0.SIZE
+@28
+sequential_tb.dut.s0.bit_count[1:0]
+sequential_tb.dut.s0.clk
+@22
+sequential_tb.dut.s0.data_in[3:0]
+@28
+sequential_tb.dut.s0.next_state
+sequential_tb.dut.s0.read
+sequential_tb.dut.s0.rst_n
+sequential_tb.dut.s0.serial_out
+@22
+sequential_tb.dut.s0.shift_reg[3:0]
+@28
+sequential_tb.dut.s0.state
+@420
+sequential_tb.dut.pd0.S0
+sequential_tb.dut.pd0.S1
+sequential_tb.dut.pd0.S2
+sequential_tb.dut.pd0.S3
+sequential_tb.dut.pd0.S4
+@28
+sequential_tb.dut.pd0.clk
+sequential_tb.dut.pd0.next_state[2:0]
+sequential_tb.dut.pd0.pattern_detected
+sequential_tb.dut.pd0.rst_n
+sequential_tb.dut.pd0.serial_in
+sequential_tb.dut.pd0.state[2:0]
+@421
+sequential_tb.dut.c0.SIZE
+@29
+sequential_tb.dut.c0.clk
+@23
+sequential_tb.dut.c0.cnt[15:0]
+@29
+sequential_tb.dut.c0.ena
+@23
+sequential_tb.dut.c0.nextcnt[15:0]
+@29
+sequential_tb.dut.c0.rst_n
+[pattern_trace] 1
+[pattern_trace] 0

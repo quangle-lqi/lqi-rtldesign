@@ -1,0 +1,33 @@
+#!/bin/csh
+
+# Set expected target directory (absolute or relative path)
+set expected_dir = "$HOME/user/rtldesign/lab1"
+
+# Check if current directory matches
+if ("$cwd" != "$expected_dir") then
+    echo "❌ Error: You must run this script from $expected_dir"
+    echo "Current directory is: $cwd"
+    exit 1
+endif
+
+# Define the source directory (edit as needed)
+set source_dir = "/path/to/source/files"
+
+# List of files to copy
+set file_list = ( \
+    file1.v \
+    file2_tb.v \
+    Makefile \
+)
+
+# Copy files
+foreach file ($file_list)
+    if (-e "$source_dir/$file") then
+        cp "$source_dir/$file" .
+        echo "✅ Copied: $file"
+    else
+        echo "⚠️  Warning: $file not found in $source_dir"
+    endif
+end
+
+echo "📂 All done!"

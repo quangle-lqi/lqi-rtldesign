@@ -1,0 +1,107 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Fri Apr 25 22:05:39 2025
+[*]
+[dumpfile] "/home/mrqua/rtldesign/lab5/dma_top_tb.vcd"
+[dumpfile_mtime] "Fri Apr 25 21:47:31 2025"
+[dumpfile_size] 108449
+[savefile] "/home/mrqua/rtldesign/lab5/dma_fifo.gtkw"
+[timestart] 11953400
+[size] 1686 973
+[pos] -665 -20
+*-16.682913 12035000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dma_top_tb.
+[treeopen] dma_top_tb.dma_inst.
+[sst_width] 276
+[signals_width] 247
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@22
+dma_top_tb.dma_inst.axi_araddr[31:0]
+@28
+dma_top_tb.dma_inst.axi_arready
+dma_top_tb.dma_inst.axi_arvalid
+@22
+dma_top_tb.dma_inst.axi_awaddr[31:0]
+@28
+dma_top_tb.dma_inst.axi_awready
+dma_top_tb.dma_inst.axi_awvalid
+dma_top_tb.dma_inst.axi_bready
+dma_top_tb.dma_inst.axi_bresp[1:0]
+dma_top_tb.dma_inst.axi_bvalid
+@22
+dma_top_tb.dma_inst.axi_rdata[31:0]
+@28
+dma_top_tb.dma_inst.axi_rready
+dma_top_tb.dma_inst.axi_rresp[1:0]
+dma_top_tb.dma_inst.axi_rvalid
+@22
+dma_top_tb.dma_inst.axi_wdata[31:0]
+@28
+dma_top_tb.dma_inst.axi_wready
+@22
+dma_top_tb.dma_inst.axi_wstrb[3:0]
+@28
+dma_top_tb.dma_inst.axi_wvalid
+dma_top_tb.dma_inst.clk
+@22
+dma_top_tb.dma_inst.dma_ctrl[31:0]
+dma_top_tb.dma_inst.dma_dst_addr[31:0]
+dma_top_tb.dma_inst.dma_size[15:0]
+dma_top_tb.dma_inst.dma_src_addr[31:0]
+@28
+dma_top_tb.dma_inst.dma_start
+@22
+dma_top_tb.dma_inst.dma_status[31:0]
+@28
+dma_top_tb.dma_inst.empty
+dma_top_tb.dma_inst.full
+@22
+dma_top_tb.dma_inst.paddr[7:0]
+@28
+dma_top_tb.dma_inst.penable
+@22
+dma_top_tb.dma_inst.prdata[31:0]
+@28
+dma_top_tb.dma_inst.pready
+dma_top_tb.dma_inst.psel
+@22
+dma_top_tb.dma_inst.pwdata[31:0]
+@28
+dma_top_tb.dma_inst.pwrite
+@22
+dma_top_tb.dma_inst.rd_count[15:0]
+dma_top_tb.dma_inst.rd_data[31:0]
+@28
+dma_top_tb.dma_inst.rd_en
+dma_top_tb.dma_inst.rd_state[1:0]
+dma_top_tb.dma_inst.rst_n
+@22
+dma_top_tb.dma_inst.wr_count[15:0]
+@23
+dma_top_tb.dma_inst.wr_data[31:0]
+@28
+dma_top_tb.dma_inst.wr_en
+dma_top_tb.dma_inst.wr_state[1:0]
+dma_top_tb.dma_inst.fifo_inst.clk
+@22
+dma_top_tb.dma_inst.fifo_inst.count[4:0]
+@28
+dma_top_tb.dma_inst.fifo_inst.empty
+dma_top_tb.dma_inst.fifo_inst.full
+@22
+dma_top_tb.dma_inst.fifo_inst.rd_data[31:0]
+@28
+dma_top_tb.dma_inst.fifo_inst.rd_en
+@22
+dma_top_tb.dma_inst.fifo_inst.rd_ptr[3:0]
+@28
+dma_top_tb.dma_inst.fifo_inst.rst_n
+@22
+dma_top_tb.dma_inst.fifo_inst.wr_data[31:0]
+@28
+dma_top_tb.dma_inst.fifo_inst.wr_en
+@22
+dma_top_tb.dma_inst.fifo_inst.wr_ptr[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,81 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Thu Apr 24 16:19:11 2025
+[*]
+[dumpfile] "/home/mrqua/rtldesign/lab5/dma_top_tb.vcd"
+[dumpfile_mtime] "Thu Apr 24 15:55:58 2025"
+[dumpfile_size] 29864
+[savefile] "/home/mrqua/rtldesign/lab5/dma.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -140 -17
+*-17.897308 195000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dma_top_tb.
+[sst_width] 276
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 157
+@420
+dma_top_tb.dma_inst.ADDR
+dma_top_tb.dma_inst.DATA
+dma_top_tb.dma_inst.IDLE
+dma_top_tb.dma_inst.RESP
+@22
+dma_top_tb.dma_inst.axi_araddr[31:0]
+@28
+dma_top_tb.dma_inst.axi_arready
+dma_top_tb.dma_inst.axi_arvalid
+@22
+dma_top_tb.dma_inst.axi_awaddr[31:0]
+@28
+dma_top_tb.dma_inst.axi_awready
+dma_top_tb.dma_inst.axi_awvalid
+dma_top_tb.dma_inst.axi_bready
+dma_top_tb.dma_inst.axi_bresp[1:0]
+dma_top_tb.dma_inst.axi_bvalid
+@22
+dma_top_tb.dma_inst.axi_rdata[31:0]
+@28
+dma_top_tb.dma_inst.axi_rready
+dma_top_tb.dma_inst.axi_rresp[1:0]
+dma_top_tb.dma_inst.axi_rvalid
+@22
+dma_top_tb.dma_inst.axi_wdata[31:0]
+@28
+dma_top_tb.dma_inst.axi_wready
+@22
+dma_top_tb.dma_inst.axi_wstrb[3:0]
+@28
+dma_top_tb.dma_inst.axi_wvalid
+@22
+dma_top_tb.dma_inst.buffer[31:0]
+@28
+dma_top_tb.dma_inst.buffer_valid
+dma_top_tb.dma_inst.clk
+@22
+dma_top_tb.dma_inst.count[15:0]
+dma_top_tb.dma_inst.dma_ctrl[31:0]
+dma_top_tb.dma_inst.dma_dst_addr[31:0]
+dma_top_tb.dma_inst.dma_size[15:0]
+dma_top_tb.dma_inst.dma_src_addr[31:0]
+@29
+dma_top_tb.dma_inst.dma_start
+@22
+dma_top_tb.dma_inst.dma_status[31:0]
+dma_top_tb.dma_inst.paddr[7:0]
+@28
+dma_top_tb.dma_inst.penable
+@22
+dma_top_tb.dma_inst.prdata[31:0]
+@28
+dma_top_tb.dma_inst.pready
+dma_top_tb.dma_inst.psel
+@22
+dma_top_tb.dma_inst.pwdata[31:0]
+@28
+dma_top_tb.dma_inst.pwrite
+dma_top_tb.dma_inst.rd_state[1:0]
+dma_top_tb.dma_inst.rst_n
+dma_top_tb.dma_inst.wr_state[1:0]
+[pattern_trace] 1
+[pattern_trace] 0
