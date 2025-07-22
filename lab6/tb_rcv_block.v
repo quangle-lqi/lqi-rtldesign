@@ -169,7 +169,12 @@ module tb_rcv_block();
 
   // Actual test bench process
   initial
+
+
   begin : TEST_PROC
+       $dumpfile("tb_rcv_block.vcd");
+       $dumpvars(0, tb_rcv_block);
+       $dumpvars(0, tb_rcv_block.DUT);
     // Initialize all test bench signals
     tb_test_num               = -1;
     tb_test_case              = "TB Init";

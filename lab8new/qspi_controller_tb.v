@@ -1,19 +1,16 @@
-// qspi_controller_tb.v - Testbench for QSPI Controller connected to QSPI Device (NOR Flash model)
-// Tests Command mode (with FIFO and DMA) and XIP mode
-// Assumptions:
-// - AXI data width 64-bit
-// - Simple AXI slave model for DMA (DRAM simulation)
-// - APB master simulation in TB
-// - AXI master simulation in TB for XIP
-// - Clock period 10ns
-// - Basic tests: Write data via Command mode, read back via XIP and Command
+// qspi_controller_tb.v - Testbench for Simplified QSPI Controller
+// Tests XIP mode (default after reset) with single lane read, and basic Command mode.
+// AXI data width 32 bits.
+// Author: Grok 4 (built by xAI)
+// Date: July 16, 2025
+// Version: 1.1 (updated for simplified RTL, no DMA)
 
 `timescale 1ns / 1ps
 
 module qspi_controller_tb;
 
     // Parameters
-    localparam AXI_DATA_WIDTH = 64;
+    localparam AXI_DATA_WIDTH = 32;
     localparam AXI_ADDR_WIDTH = 32;
     localparam AXI_ID_WIDTH = 4;
     localparam FIFO_DEPTH_LOG = 4;
@@ -72,43 +69,6 @@ module qspi_controller_tb;
     wire axis_rlast;
     wire axis_rvalid;
     reg axis_rready = 0;
-
-    // AXI Master (DMA) - Simple slave model for DRAM
-    wire [AXI_ID_WIDTH-1:0] axim_awid;
-    wire [AXI_ADDR_WIDTH-1:0] axim_awaddr;
-    wire [7:0] axim_awlen;
-    wire [2:0] axim_awsize;
-    wire [1:0] axim_awburst;
-    wire axim_awlock;
-    wire [3:0] axim_awcache;
-    wire [2:0] axim_awprot;
-    wire axim_awvalid;
-    reg axim_awready = 0;
-    wire [AXI_DATA_WIDTH-1:0] axim_wdata;
-    wire [AXI_DATA_WIDTH/8-1:0] axim_wstrb;
-    wire axim_wlast;
-    wire axim_wvalid;
-    reg axim_wready = 0;
-    reg [AXI_ID_WIDTH-1:0] axim_bid = 0;
-    reg [1:0] axim_bresp = 0;
-    reg axim_bvalid = 0;
-    wire axim_bready;
-    wire [AXI_ID_WIDTH-1:0] axim_arid;
-    wire [AXI_ADDR_WIDTH-1:0] axim_araddr;
-    wire [7:0] axim_arlen;
-    wire [2:0] axim_arsize;
-    wire [1:0] axim_arburst;
-    wire axim_arlock;
-    wire [3:0] axim_arcache;
-    wire [2:0] axim_arprot;
-    wire axim_arvalid;
-    reg axim_arready = 0;
-    reg [AXI_ID_WIDTH-1:0] axim_rid = 0;
-    reg [AXI_DATA_WIDTH-1:0] axim_rdata = 0;
-    reg [1:0] axim_rresp = 0;
-    reg axim_rlast = 0;
-    reg axim_rvalid = 0;
-    wire axim_rready;
 
     // QSPI Wires
     wire qspi_sclk;
@@ -171,41 +131,6 @@ module qspi_controller_tb;
         .axis_rlast(axis_rlast),
         .axis_rvalid(axis_rvalid),
         .axis_rready(axis_rready),
-        .axim_awid(axim_awid),
-        .axim_awaddr(axim_awaddr),
-        .axim_awlen(axim_awlen),
-        .axim_awsize(axim_awsize),
-        .axim_awburst(axim_awburst),
-        .axim_awlock(axim_awlock),
-        .axim_awcache(axim_awcache),
-        .axim_awprot(axim_awprot),
-        .axim_awvalid(axim_awvalid),
-        .axim_awready(axim_awready),
-        .axim_wdata(axim_wdata),
-        .axim_wstrb(axim_wstrb),
-        .axim_wlast(axim_wlast),
-        .axim_wvalid(axim_wvalid),
-        .axim_wready(axim_wready),
-        .axim_bid(axim_bid),
-        .axim_bresp(axim_bresp),
-        .axim_bvalid(axim_bvalid),
-        .axim_bready(axim_bready),
-        .axim_arid(axim_arid),
-        .axim_araddr(axim_araddr),
-        .axim_arlen(axim_arlen),
-        .axim_arsize(axim_arsize),
-        .axim_arburst(axim_arburst),
-        .axim_arlock(axim_arlock),
-        .axim_arcache(axim_arcache),
-        .axim_arprot(axim_arprot),
-        .axim_arvalid(axim_arvalid),
-        .axim_arready(axim_arready),
-        .axim_rid(axim_rid),
-        .axim_rdata(axim_rdata),
-        .axim_rresp(axim_rresp),
-        .axim_rlast(axim_rlast),
-        .axim_rvalid(axim_rvalid),
-        .axim_rready(axim_rready),
         .qspi_sclk(qspi_sclk),
         .qspi_cs_n(qspi_cs_n),
         .qspi_io0(qspi_io0),
@@ -223,41 +148,6 @@ module qspi_controller_tb;
         .qspi_io2(qspi_io2),
         .qspi_io3(qspi_io3)
     );
-
-    // Simple DRAM model for AXI Master (DMA)
-    reg [7:0] dram [0:1023]; // Small DRAM simulation, 1KB
-    reg [7:0] dma_burst_cnt;
-    always @(posedge clk) begin
-        if (axim_awvalid) begin
-            axim_awready <= 1;
-        end else axim_awready <= 0;
-        if (axim_awvalid && axim_awready) dma_burst_cnt <= 0;
-        if (axim_wvalid && axim_wready) begin
-            // Write to DRAM
-            dram[axim_awaddr + dma_burst_cnt* (AXI_DATA_WIDTH/8)] <= axim_wdata[7:0]; // Byte write, simplify
-            // Extend for full width
-            dma_burst_cnt <= dma_burst_cnt + 1;
-            if (axim_wlast) axim_bvalid <= 1;
-        end
-        axim_wready <= 1; // Always ready
-        if (axim_bvalid && axim_bready) axim_bvalid <= 0;
-        axim_bid <= axim_awid;
-        axim_bresp <= 2'b00;
-
-        if (axim_arvalid) begin
-            axim_arready <= 1;
-        end else axim_arready <= 0;
-        if (axim_arvalid && axim_arready) dma_burst_cnt <= 0;
-        if (axim_rready) begin
-            axim_rvalid <= 1;
-            axim_rdata <= {8{dram[axim_araddr + dma_burst_cnt * (AXI_DATA_WIDTH/8)]}}; // Replicate byte
-            dma_burst_cnt <= dma_burst_cnt + 1;
-            axim_rlast <= (dma_burst_cnt == axim_arlen);
-            if (axim_rlast) axim_rvalid <= 0;
-        end
-        axim_rid <= axim_arid;
-        axim_rresp <= 2'b00;
-    end
 
     // APB Write Task
     task apb_write;
@@ -298,7 +188,7 @@ module qspi_controller_tb;
         begin
             axis_araddr = addr;
             axis_arlen = len - 1;
-            axis_arsize = 3; // 8 bytes
+            axis_arsize = 2; // 4 bytes for 32-bit
             axis_arburst = 1; // INCR
             axis_arvalid = 1;
             wait (axis_arready);
@@ -313,75 +203,60 @@ module qspi_controller_tb;
         end
     endtask
 
-// Test Sequence
+    // Test Sequence
     initial begin
+       $dumpfile("qspi_controller_tb.vcd");
+       $dumpvars(0, qspi_controller_tb);
+       $dumpvars(0, qspi_controller_tb.dut);
+       $dumpvars(0, qspi_controller_tb.flash);        
         // Reset
         #20 rst_n = 1;
 
-        // Configure
-        apb_write(12'h014, 32'h01);
-        apb_write(12'h004, 32'h01);
-
-        // Write Enable
-        apb_write(12'h024, 32'h00000000);
-        apb_write(12'h028, 32'h00000006);
-        apb_write(12'h004, 32'h00000101);
-        #100;
-        apb_read(12'h008, status); if (status[2]) $display("Write Enable Done");
-
-        // Page Program with FIFO, write 4 bytes separately
-        apb_write(12'h024, 32'h00000101);
-        apb_write(12'h028, 32'h00000002);
-        apb_write(12'h02C, 32'h00000000);
-        apb_write(12'h030, 32'h00000004);
-        apb_write(12'h044, 32'h000000DD);
-        apb_write(12'h044, 32'h000000CC);
-        apb_write(12'h044, 32'h000000BB);
-        apb_write(12'h044, 32'h000000AA);
-        apb_write(12'h004, 32'h00000101);
+        // No programming needed, default XIP single lane
+        // Test XIP read immediately after reset
+        axi_read(32'h00000000, 4); // Read 4 beats (16 bytes) from address 0
         #500;
-        apb_read(12'h008, status); if (status[2]) $display("Page Program FIFO Done");
 
-        // Read Data
-        apb_write(12'h024, 32'h00000141);
-        apb_write(12'h028, 32'h00000003);
-        apb_write(12'h02C, 32'h00000000);
-        apb_write(12'h030, 32'h00000004);
-        apb_write(12'h004, 32'h00000101);
+        // Optional: Test Command mode - Write Enable (0x06)
+        apb_write(12'h009, 32'h00000000); // CMD_CFG: single lane, no addr, no data
+        apb_write(12'h00A, 32'h00000006); // OPCODE = 0x06
+        apb_write(12'h001, 32'h00000100); // TRIGGER = 1 (bit 8), disable XIP temporarily if needed
+        #100; // Wait for completion
+        apb_read(12'h002, status); if (status[2]) $display("Write Enable Done");
+
+        // Page Program (0x02) with FIFO, single lane, 4 bytes data at addr 0x000000
+        apb_write(12'h009, 32'h00000101); // CMD_CFG: single all, 3 addr bytes, DIR=0 (write)
+        apb_write(12'h00A, 32'h00000002); // OPCODE = 0x02
+        apb_write(12'h00B, 32'h00000000); // ADDR = 0
+        apb_write(12'h00C, 32'h00000004); // LEN = 4
+        apb_write(12'h011, 32'h000000DD); // FIFO_TX byte 1
+        apb_write(12'h011, 32'h000000CC); // byte 2
+        apb_write(12'h011, 32'h000000BB); // byte 3
+        apb_write(12'h011, 32'h000000AA); // byte 4
+        apb_write(12'h001, 32'h00000100); // TRIGGER
+        #500; // Wait
+        apb_read(12'h002, status); if (status[2]) $display("Page Program Done");
+
+        // Read Data (0x03) with FIFO
+        apb_write(12'h009, 32'h00000141); // DIR=1 (read)
+        apb_write(12'h00A, 32'h00000003);
+        apb_write(12'h00B, 32'h00000000);
+        apb_write(12'h00C, 32'h00000004);
+        apb_write(12'h001, 32'h00000100); // TRIGGER
         #500;
-        apb_read(12'h048, rdata); $display("Read Byte 1: %h", rdata[7:0]);
-        apb_read(12'h048, rdata); $display("Read Byte 2: %h", rdata[7:0]);
-        apb_read(12'h048, rdata); $display("Read Byte 3: %h", rdata[7:0]);
-        apb_read(12'h048, rdata); $display("Read Byte 4: %h", rdata[7:0]);
+        apb_read(12'h012, rdata); $display("Read Byte 1: %h", rdata[7:0]);
+        apb_read(12'h012, rdata); $display("Read Byte 2: %h", rdata[7:0]);
+        apb_read(12'h012, rdata); $display("Read Byte 3: %h", rdata[7:0]);
+        apb_read(12'h012, rdata); $display("Read Byte 4: %h", rdata[7:0]);
 
-        // DMA test - Write Enable
-        apb_write(12'h028, 32'h00000006);
-        apb_write(12'h004, 32'h00000101);
-        #100;
-        // Page Program with DMA
-        apb_write(12'h004, 32'h00000201);
-        apb_write(12'h038, 32'h00000003);
-        apb_write(12'h03C, 32'h00000000);
-        apb_write(12'h040, 32'h00000004);
-        apb_write(12'h028, 32'h00000002);
-        apb_write(12'h02C, 32'h00000004);
-        apb_write(12'h030, 32'h00000004);
-        apb_write(12'h004, 32'h00000301);
-        #1000;
-        apb_read(12'h008, status); if (status[3]) $display("DMA Program Done");
-
-        // XIP
-        apb_write(12'h01C, 32'h00000022);
-        apb_write(12'h020, 32'h000000EB);
-        apb_write(12'h004, 32'h00000002);
-        #100;
-        axi_read(32'h00000000, 8);
-        #1000;
+        // Re-enable XIP if disabled
+        apb_write(12'h001, 32'h00000002); // XIP_EN = 1
+        axi_read(32'h00000000, 4); // Read again via XIP
 
         $display("Test Complete");
         $finish;
     end
-    
+
     reg [31:0] status, rdata;
 
 endmodule

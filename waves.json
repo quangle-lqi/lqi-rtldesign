@@ -1,0 +1,202 @@
+{
+  "signal": [
+    { "name": "clk",      "wave": "p....................." },
+
+    // Read Address Channel
+    { "name": "ARVALID",  "wave": "0..1.0..1.0..1.0..1.0...", "phase": 0.9 },
+    { "name": "ARADDR",   "wave": "x.3.x..4.x..5.x..6.x...", "data": ["0x8000","0x8004","0x8008","0x800C"] },
+    { "name": "ARREADY",  "wave": "0..10...10...10...10..." },
+
+    // Read Data Channel
+    { "name": "RVALID",   "wave": "0...1.0..1.0..1.0..1.0." },
+    { "name": "RDATA",    "wave": "x...3.x..4.x..5.x..6.x.", "data": ["0x50000000","0x50000004","0x50000008","5000000C"] },
+    { "name": "RREADY",   "wave": "0....10...10...10...10." },
+
+    // Write Address Channel
+    { "name": "AWVALID",  "wave": "0.......1.0...1.0...1.0.", "phase": 0.9 },
+    { "name": "AWADDR",   "wave": "x......3.x...4.x...5.x.", "data": ["0xA000","0xA004","0xA008"] },
+    { "name": "AWREADY",  "wave": "0.......10....10....10." },
+
+    // Write Data Channel
+    { "name": "WVALID",   "wave": "0..........1.0...1.0..." },
+    { "name": "WDATA",    "wave": "x..........3.x...4.x...", "data": ["0x50000000","0x50000004"] },
+    { "name": "WSTRB",    "wave": "x..........3.x...4.x...", "data": ["0xF", "0xF"] },
+    { "name": "WREADY",   "wave": "0...........10....10..." },
+
+    // Write Response Channel
+    { "name": "BVALID",   "wave": "0.............1.0...1.0" },
+    { "name": "BREADY",   "wave": "0..............10....10" }
+  ],
+  "head": {
+    "text": "AXI4: Read from SRC then Write to DST overlapping"
+  }
+}
+
+{  "signal": [
+    { "name": "clk",     "wave": "p................" },
+    { "name": "rst_n",   "wave": "01..............." },
+
+    { "name": "psel",    "wave": "0.1..0.1..0.1..0....", "phase": 0.9 },
+    { "name": "penable", "wave": "0..1.0..1.0..1.0...", "phase": 0.9 },
+    { "name": "pwrite",  "wave": "0..1.0..1.0..1.0.....", "phase": 0.9 },
+    { "name": "paddr",   "wave": "x..3.x..3.x..3.x......", "data": ["0x08", "0x0C", "0x00"], "phase": 0.9 },
+    { "name": "pwdata",  "wave": "x..3.x..3.x..3.x.....", "data": ["SRC", "DST", "CTRL=0x01000001"], "phase": 0.9 },
+    { "name": "prdata",  "wave": "x................" },
+    { "name": "pready",  "wave": "0..10...10...10......." }
+  ],
+  "head": {
+    "text": "APB Sequence: Write SRC -> DST -> CTRL"
+  }
+}
+
+{
+    "signal": [
+      { "name": "clk",      "wave": "p....................." },
+  
+      
+      // Write Address Channel
+      { "name": "AWVALID",  "wave": "0..1.0...........", "phase": 0.9 },
+      { "name": "AWADDR",   "wave": "x.3.x................", "data": ["0xA000"] },
+      { "name": "AWLEN",   "wave": "x.3.x................", "data": ["0x7"] },
+      { "name": "AWSIZE",   "wave": "x.3.x................", "data": ["0x2"] },
+      { "name": "AWBURST",   "wave": "x.3.x................", "data": ["0x2"] },
+      { "name": "AWREADY",  "wave": "0..10................" },
+  
+      // Write Data Channel
+      { "name": "WVALID",   "wave": "0...1.1.01........0.." },
+      { "name": "WLAST",   "wave": "0...............1.0.." },
+      { "name": "WDATA",    "wave": "x...=.=.x===.==.=.x..", "data": ["D0","D1", "D2","D3", "D4","D5","D6","D7"] },
+      { "name": "WREADY",   "wave": "0....101...01101010.." },
+  
+      // Write Response Channel
+      { "name": "BVALID",   "wave": "0..................10" },
+      { "name": "BREADY",   "wave": "0...1...............0" }
+    ],
+    "head": {
+      "text": "AXI4: Write Burst length of 8, different wait state scenario"
+    }
+  }
+
+  {
+    "signal": [
+      { "name": "clk",      "wave": "p.................." },
+  
+      
+      // Write Address Channel
+      { "name": "ARVALID",  "wave": "0..1.01.01.01.0.....", "phase": 0.9 },
+      { "name": "ARADDR",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0xA000","0xB000","0xC000","0xD000"] },
+      { "name": "ARID",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x001","0x002","0x003","0x004"] },
+      { "name": "ARLEN",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x3","0x3","0x3","0x3"] },
+      { "name": "ARSIZE",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "ARBURST",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "ARREADY",  "wave": "0..10.10.10.10....." },
+  
+      // Write Data Channel
+      { "name": "RVALID",   "wave": "0.......1..............0..." },
+      { "name": "RID",   "wave": "x.......3...4...5...6...x..", "data": ["0x1","0x2","0x3","0x4"] },
+      { "name": "RLAST",   "wave": "0..........10..10..10..10.." },
+      { "name": "RDATA",    "wave": "x.......================x..", "data": ["A0","A1", "A2","A3", "B0","B1","B2","B3","C0","C1", "C2","C3", "D0","D1","D2","D3"], },
+      { "name": "RREADY",   "wave": "0.......1...............0.." },
+  
+    ],
+    "head": {
+      "text": "AXI4: Read Burst length of 4, Master is ready to take data"
+    }
+  }
+
+  {
+    "signal": [
+      { "name": "clk",      "wave": "p.................." },
+  
+      
+      // Write Address Channel
+      { "name": "ARVALID",  "wave": "0..1.01.01.01.0.....", "phase": 0.9 },
+      { "name": "ARADDR",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0xA000","0xB000","0xC000","0xD000"] },
+      { "name": "ARID",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x001","0x002","0x003","0x004"] },
+      { "name": "ARLEN",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x3","0x3","0x3","0x3"] },
+      { "name": "ARSIZE",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "ARBURST",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "ARREADY",  "wave": "0..10.10.10.10....." },
+  
+      // Write Data Channel
+      { "name": "RVALID",   "wave": "0.......1...............0" },
+      { "name": "RID",   "wave": "x.......3...6...5...4...x", "data": ["0x1","0x4","0x3","0x2"] },
+      { "name": "RLAST",   "wave": "0..........10..10..10..10" },
+      { "name": "RDATA",    "wave": "x.......================x", "data": ["A0","A1", "A2","A3", "D0","D1","D2","D3","C0","C1", "C2","C3", "B0","B1","B2","B3"], },
+      { "name": "RREADY",   "wave": "0.......1...............0" },
+  
+    ],
+    "head": {
+      "text": "AXI4: Multiple Read Burst length of 4, return out of order"
+    }
+  }
+
+  {
+    "signal": [
+      { "name": "clk",      "wave": "p.................." },
+  
+      
+      // Write Address Channel
+      { "name": "AWVALID",  "wave": "0..1.01.01.01.0.....", "phase": 0.9 },
+      { "name": "AWADDR",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0xA000","0xB000","0xC000","0xD000"] },
+      { "name": "AWID",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x001","0x002","0x003","0x004"] },
+      { "name": "AWLEN",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x3","0x3","0x3","0x3"] },
+      { "name": "AWSIZE",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "AWBURST",   "wave": "x.3.x4.x5.x6.x.....", "data": ["0x2","0x2","0x2","0x2"] },
+      { "name": "AWREADY",  "wave": "0..10.10.10.10....." },
+  
+      // Write Data Channel
+      { "name": "WVALID",   "wave": "0...1...............0.." },
+
+      { "name": "WLAST",   "wave": "0......10..10..10..10.." },
+      { "name": "WDATA",    "wave": "x...================x..", "data": ["A0","A1", "A2","A3", "B0","B1","B2","B3","C0","C1", "C2","C3", "D0","D1","D2","D3"], },
+      { "name": "WREADY",   "wave": "0...1...............0.." },
+      { "name": "BVALID",   "wave": "0.........10.....1.0.10" },
+      { "name": "BID",   "wave": "x.........3x.....54x.6x", "data": ["0x1","0x3","0x2","0x4"] },
+      { "name": "BREADY",   "wave": "0...1.................0" }
+    ],
+    "head": {
+      "text": "AXI4: Multiple Write Burst length of 4, BID out of order"
+    }
+  }
+
+
+  {
+    "signal": [
+      { "name": "clk",      "wave": "p.................." },
+  
+      
+      // Write Address Channel
+      { "name": "ARVALID",  "wave": "0..1.0..............", "phase": 0.9 },
+      { "name": "ARADDR",   "wave": "x.3.x..............", "data": ["0xA000"] },
+      { "name": "ARLEN",   "wave": "x.3.x..............", "data": ["0x7"] },
+      { "name": "ARSIZE",   "wave": "x.3.x..............", "data": ["0x2"] },
+      { "name": "ARBURST",   "wave": "x.3.x..............", "data": ["0x2"] },
+      { "name": "ARREADY",  "wave": "0..10.............." },
+  
+      // Write Data Channel
+      { "name": "RVALID",   "wave": "0...1.01..0.1..0..." },
+      { "name": "RLAST",   "wave": "0.............10..." },
+      { "name": "RDATA",    "wave": "x...==x===x.===x...", "data": ["D0","D1", "D2","D3", "D4","D5","D6","D7"] },
+      { "name": "RREADY",   "wave": "0...1..........0..." },
+ 
+    ],
+    "head": {
+      "text": "AXI4: Read Burst length of 8, different wait state scenario"
+    }
+  }
+  {
+    "signal": [
+      { "name": "SCK",      "wave": "p...|......|......" },
+  
+      
+      
+      { "name": "WS",  "wave": "1..0...|..1...|..0.", "phase": 0.9 },
+      { "name": "SD",   "wave": "0.==|========|====", "data": ["LSB","","","","","MSB","LSB","","","","","MSB","LSB","",""] }
+
+  
+    ],
+    "head": {
+      "text": "I2S frame with alternate L and R channel"
+    }
+  }

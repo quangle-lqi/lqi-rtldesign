@@ -25,7 +25,7 @@ module alu_17bit (
                 overflow  = sub_result[17];
             end
             2'b10: begin // MUL (output upper 17 bits)
-                dest_data = mul_result[33:17];
+                dest_data = mul_result[32:16];
                 overflow  = 1'b0;  // overflow not meaningful for MUL upper
             end
             default: begin

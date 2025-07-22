@@ -1,0 +1,67 @@
+[*]
+[*] GTKWave Analyzer v3.3.106 (w)1999-2020 BSI
+[*] Fri Jul 18 03:43:27 2025
+[*]
+[dumpfile] "/home/mrqua/rtldesign/lab8new/qspi_device_tb.vcd"
+[dumpfile_mtime] "Fri Jul 18 03:13:19 2025"
+[dumpfile_size] 20707
+[savefile] "/home/mrqua/rtldesign/lab8new/qspi_device_tb.gtkw"
+[timestart] 0
+[size] 2208 1540
+[pos] 848 -89
+*-13.722003 95000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] qspi_device_tb.
+[sst_width] 214
+[signals_width] 337
+[sst_expanded] 1
+[sst_vpaned_height] 1017
+@420
+qspi_device_tb.dut.ADDR_BITS
+qspi_device_tb.dut.MEM_SIZE
+qspi_device_tb.dut.PAGE_SIZE
+qspi_device_tb.dut.SECTOR_SIZE
+qspi_device_tb.dut.ST_ADDR
+qspi_device_tb.dut.ST_CMD
+qspi_device_tb.dut.ST_DATA_READ
+qspi_device_tb.dut.ST_DATA_WRITE
+qspi_device_tb.dut.ST_DUMMY
+qspi_device_tb.dut.ST_ERASE
+qspi_device_tb.dut.ST_IDLE
+qspi_device_tb.dut.ST_MODE
+qspi_device_tb.dut.ST_STATUS
+@22
+qspi_device_tb.dut.addr_reg[23:0]
+qspi_device_tb.dut.bit_cnt[31:0]
+qspi_device_tb.dut.byte_cnt[31:0]
+@23
+qspi_device_tb.dut.cmd_reg[7:0]
+@28
+qspi_device_tb.dut.continuous_read
+@22
+qspi_device_tb.dut.dummy_cycles[4:0]
+@420
+qspi_device_tb.dut.i
+@22
+qspi_device_tb.dut.io_di[3:0]
+qspi_device_tb.dut.io_do[3:0]
+qspi_device_tb.dut.io_oe[3:0]
+qspi_device_tb.dut.lanes[3:0]
+qspi_device_tb.dut.mode_bits[7:0]
+@28
+qspi_device_tb.dut.qspi_cs_n
+qspi_device_tb.dut.qspi_io0
+qspi_device_tb.dut.qspi_io1
+qspi_device_tb.dut.qspi_io2
+qspi_device_tb.dut.qspi_io3
+qspi_device_tb.dut.qspi_sclk
+@22
+qspi_device_tb.dut.shift_in[7:0]
+qspi_device_tb.dut.shift_out[7:0]
+qspi_device_tb.dut.state[3:0]
+qspi_device_tb.dut.status_reg[7:0]
+@28
+qspi_device_tb.dut.wip
+@22
+qspi_device_tb.dut.nxt_cmd_reg[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

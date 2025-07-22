@@ -5,8 +5,7 @@ module start_bit_det
   input  wire clk,
   input  wire rst_n,
   input  wire serial_in,
-  output wire start_bit_detected,
-  output wire new_package_detected
+  output wire start_bit_detected
 );
 
   reg old_sample;
@@ -30,7 +29,7 @@ module start_bit_det
   end
   
   // Output logic
-  assign new_package_detected = old_sample & (~new_sample);
+
   assign start_bit_detected = old_sample & (~new_sample); // Detect a falling edge -> new sample must be '0' and old sample must be '1'
 
   

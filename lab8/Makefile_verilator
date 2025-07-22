@@ -1,0 +1,38 @@
+# Makefile for AXI QSPI Flash Controller testbench
+# Usage:
+#   make         → compile and run simulation
+#   make view    → open waveform in GTKWave
+#   make clean   → remove build files
+
+# Makefile for Verilator-based simulation of AXI QSPI Flash Controller
+
+TOP_MODULE = tb_axi_qspi_flash_controller
+VERILOG_SRCS = axi_qspi_flash_controller.v tb_axi_qspi_flash_controller.v qspi_nor_flash.v
+
+# C++ simulation output
+OBJ_DIR = obj_dir
+VCD_FILE = wave.vcd
+
+# Default target: build and run
+all: sim
+
+# Run simulation
+sim: $(OBJ_DIR)/V$(TOP_MODULE)
+	./$(OBJ_DIR)/V$(TOP_MODULE)
+
+# Compile with Verilator
+$(OBJ_DIR)/V$(TOP_MODULE): $(VERILOG_SRCS)
+	verilator -cc --exe --build \
+		--top-module $(TOP_MODULE) \
+		--trace-fst \
+		-CFLAGS "-std=c++11" \
+		sim_main.cpp \
+		$(VERILOG_SRCS)
+
+# Open waveform with GTKWave
+view: $(VCD_FILE)
+	gtkwave $(VCD_FILE)
+
+# Clean up
+clean:
+	rm -rf $(OBJ_DIR) $(VCD_FILE)
